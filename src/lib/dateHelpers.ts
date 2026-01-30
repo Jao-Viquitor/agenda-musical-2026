@@ -55,14 +55,22 @@ export const generateAllEvents = (): MusicalEvent[] => {
       category === EventCategory.ENSAIO_REGIONAL || 
       category === EventCategory.REUNIAO;
 
+    // Ajustar descrição para ensaios locais às 19h30
+    let finalTime = time;
+    let finalDescription = description;
+    
+    if (category === EventCategory.ENSAIO_LOCAL && time === '19:30') {
+      finalDescription = 'Junto do culto';
+    }
+
     events.push({
       id: `evt-${idCounter++}`,
       title,
       location,
       date,
-      time,
+      time: finalTime,
       category,
-      description,
+      description: finalDescription,
       isSpecial
     });
   };
@@ -140,12 +148,36 @@ export const generateAllEvents = (): MusicalEvent[] => {
     });
   });
 
-  // Sort events by date. Put TBD at the end.
+  // Sort events by date, then by time. Put TBD at the end.
   return events.sort((a, b) => {
     if (!a.date) return 1;
     if (!b.date) return -1;
+    
+    // Se mesma data, ordenar por horário
+    if (a.date.getTime() === b.date.getTime()) {
+      // Converter horários para comparação
+      const timeA = parseTimeToMinutes(a.time);
+      const timeB = parseTimeToMinutes(b.time);
+      return timeA - timeB;
+    }
+    
     return a.date.getTime() - b.date.getTime();
   });
+};
+
+// Helper para converter horário em minutos para ordenação
+const parseTimeToMinutes = (time: string): number => {
+  // Handle special cases
+  if (time === 'A definir') return 9999;
+  if (time.includes('Após')) return 1000; // Após culto
+  
+  // Parse HH:MM format
+  const match = time.match(/(\d{1,2}):(\d{2})/);
+  if (match) {
+    return parseInt(match[1]) * 60 + parseInt(match[2]);
+  }
+  
+  return 9999; // Fallback
 };
 
 export const formatDate = (date: Date | undefined): string => {

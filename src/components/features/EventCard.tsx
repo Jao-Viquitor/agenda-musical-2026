@@ -24,6 +24,7 @@ const getCategoryColor = (category: EventCategory) => {
     case EventCategory.EXAME:
       return 'bg-rose-100 text-rose-800 border-rose-200';
     case EventCategory.ENSAIO_LOCAL:
+      return 'bg-emerald-100 text-emerald-800 border-emerald-200';
     default:
       return 'bg-slate-100 text-slate-700 border-slate-200';
   }
@@ -120,6 +121,11 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                               <Clock className="h-4 w-4 text-slate-400 shrink-0" />
                               <span>{event.time}</span>
                           </div>
+                          {event.description && (
+                              <div className="flex items-center gap-2 text-xs text-slate-500 italic">
+                                  <span>• {event.description}</span>
+                              </div>
+                          )}
                       </div>
                   </div>
 
