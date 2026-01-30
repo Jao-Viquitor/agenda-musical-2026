@@ -100,7 +100,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
         onClick={() => setShowModal(true)}
         className={`
           relative overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-200 hover:shadow-md flex flex-col cursor-pointer group
-          ${event.isSpecial ? 'border-l-4 border-l-[#033d60]' : 'border-slate-200'}
+          ${event.isSpecial ? 'border-l-4 border-l-[#033d60]' : ''}
+          ${event.category === EventCategory.ENSAIO_LOCAL ? 'border-l-4 border-l-emerald-500' : ''}
+          ${!event.isSpecial && event.category !== EventCategory.ENSAIO_LOCAL ? 'border-slate-200' : ''}
           hover:scale-[1.02]
         `}
       >
