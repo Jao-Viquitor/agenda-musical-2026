@@ -52,7 +52,7 @@ export const generateEventShareText = (event: MusicalEvent): string => {
     text += `\nℹ️ *Observações:*\n${event.description}\n`;
   }
 
-  text += `\nSent via *Agenda Musical*`;
+  text += `\nVeja mais detalhes em: https://setormusical-uruguaiana.vercel.app`;
 
   return text;
 };
