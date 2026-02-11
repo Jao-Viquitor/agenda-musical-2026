@@ -23,6 +23,8 @@ const getCategoryColor = (category: EventCategory) => {
       return 'bg-indigo-100 text-indigo-800 border-indigo-200';
     case EventCategory.EXAME:
       return 'bg-rose-100 text-rose-800 border-rose-200';
+    case EventCategory.REUNIAO_TECNICA_ORGANISTAS:
+      return 'bg-pink-100 text-pink-800 border-pink-200';
     case EventCategory.ENSAIO_LOCAL:
       return 'bg-emerald-100 text-emerald-800 border-emerald-200';
     default:
@@ -74,9 +76,9 @@ const formatAddressStreetOnly = (address: string): string => {
 
 export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggleFavorite }) => {
   const [showModal, setShowModal] = useState(false);
-  
+
   const isTBD = !event.date;
-  const dateObj = event.date || new Date(); 
+  const dateObj = event.date || new Date();
 
   const handleShare = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -90,79 +92,80 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
   }
 
   const mainAddress = getMainChurchAddress(event.location);
-  const mapsUrl = mainAddress 
+  const mapsUrl = mainAddress
     ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(mainAddress)}`
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`;
 
   return (
     <>
-      <div 
+      <div
         onClick={() => setShowModal(true)}
         className={`
           relative overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-200 hover:shadow-md flex flex-col cursor-pointer group
           ${event.isSpecial ? 'border-l-4 border-l-[#033d60]' : ''}
+          ${event.category === EventCategory.REUNIAO_TECNICA_ORGANISTAS ? 'border-l-4 border-l-pink-500' : ''}
           ${event.category === EventCategory.ENSAIO_LOCAL ? 'border-l-4 border-l-emerald-500' : ''}
-          ${!event.isSpecial && event.category !== EventCategory.ENSAIO_LOCAL ? 'border-slate-200' : ''}
+          ${!event.isSpecial && event.category !== EventCategory.ENSAIO_LOCAL && event.category !== EventCategory.REUNIAO_TECNICA_ORGANISTAS ? 'border-slate-200' : ''}
           hover:scale-[1.02]
         `}
       >
         <div className="p-5 flex flex-col h-full">
           <div className="flex-grow">
-              {/* Header: Date (Right) and Title (Left) */}
-              <div className="flex items-start justify-between mb-2">
-                  <div className="pr-4">
-                      <h3 className="text-lg font-bold text-[#033d60] leading-tight mb-1">{event.title}</h3>
-                      
-                       {/* City and Time */}
-                      <div className="space-y-1">
-                          <div className="flex items-center gap-2 text-sm text-slate-600">
-                              <MapPin className="h-4 w-4 text-slate-400 shrink-0" />
-                              <span>{extractCityFromLocation(event.location)}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-slate-600">
-                              <Clock className="h-4 w-4 text-slate-400 shrink-0" />
-                              <span>{event.time}</span>
-                          </div>
-                          {event.description && (
-                              <div className="flex items-center gap-2 text-xs text-slate-500 italic">
-                                  <span>• {event.description}</span>
-                              </div>
-                          )}
-                      </div>
-                  </div>
+            {/* Header: Date (Right) and Title (Left) */}
+            <div className="flex items-start justify-between mb-2">
+              <div className="pr-4">
+                <h3 className="text-lg font-bold text-[#033d60] leading-tight mb-1">{event.title}</h3>
 
-                  {!isTBD && (
-                      <div className="flex flex-col items-center justify-center bg-slate-50 border border-slate-100 rounded-lg p-2 min-w-[60px]">
-                          <span className="text-xs uppercase font-bold tracking-wider text-[#033d60]/60">{new Intl.DateTimeFormat('pt-BR', { month: 'short' }).format(dateObj)}</span>
-                          <span className="text-xl font-bold leading-none text-[#033d60]">{dateObj.getDate()}</span>
-                      </div>
+                {/* City and Time */}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <MapPin className="h-4 w-4 text-slate-400 shrink-0" />
+                    <span>{extractCityFromLocation(event.location)}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <Clock className="h-4 w-4 text-slate-400 shrink-0" />
+                    <span>{event.time}</span>
+                  </div>
+                  {event.description && (
+                    <div className="flex items-center gap-2 text-xs text-slate-500 italic">
+                      <span>• {event.description}</span>
+                    </div>
                   )}
+                </div>
               </div>
+
+              {!isTBD && (
+                <div className="flex flex-col items-center justify-center bg-slate-50 border border-slate-100 rounded-lg p-2 min-w-[60px]">
+                  <span className="text-xs uppercase font-bold tracking-wider text-[#033d60]/60">{new Intl.DateTimeFormat('pt-BR', { month: 'short' }).format(dateObj)}</span>
+                  <span className="text-xl font-bold leading-none text-[#033d60]">{dateObj.getDate()}</span>
+                </div>
+              )}
+            </div>
           </div>
-          
+
           {/* Footer: Badge */}
           <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-               <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium border ${getCategoryColor(event.category)}`}>
-                  {event.category}
-              </span>
-              <button 
-                onClick={handleFavoriteClick}
-                className={`p-2 rounded-full transition-colors ${isFavorite ? 'bg-rose-100 text-rose-500' : 'text-slate-400 hover:bg-rose-50 hover:text-rose-500'}`}
-                title={isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-              >
-                <Heart className={`w-4 h-4 ${isFavorite ? 'fill-rose-500' : ''}`} />
-              </button>
+            <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium border ${getCategoryColor(event.category)}`}>
+              {event.category}
+            </span>
+            <button
+              onClick={handleFavoriteClick}
+              className={`p-2 rounded-full transition-colors ${isFavorite ? 'bg-rose-100 text-rose-500' : 'text-slate-400 hover:bg-rose-50 hover:text-rose-500'}`}
+              title={isFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+            >
+              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-rose-500' : ''}`} />
+            </button>
           </div>
         </div>
       </div>
 
       {/* Modal */}
       {showModal && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setShowModal(false)}
         >
-          <div 
+          <div
             className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
@@ -232,7 +235,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
 
               {/* Actions */}
               <div className="grid grid-cols-2 gap-3 pt-2">
-                <a 
+                <a
                   href={mapsUrl}
                   target="_blank"
                   rel="noreferrer"
@@ -243,7 +246,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                 </a>
 
                 {!isTBD && (
-                  <a 
+                  <a
                     href={getGoogleCalendarLink(event)}
                     target="_blank"
                     rel="noreferrer"
@@ -254,7 +257,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                   </a>
                 )}
 
-                <button 
+                <button
                   onClick={handleShare}
                   className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors font-medium text-sm"
                 >
@@ -262,13 +265,12 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                   Compartilhar
                 </button>
 
-                <button 
+                <button
                   onClick={handleFavoriteClick}
-                  className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors font-medium text-sm ${
-                    isFavorite 
-                      ? 'bg-rose-100 text-rose-600 hover:bg-rose-200' 
+                  className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors font-medium text-sm ${isFavorite
+                      ? 'bg-rose-100 text-rose-600 hover:bg-rose-200'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                  }`}
+                    }`}
                 >
                   <Heart className={`w-4 h-4 ${isFavorite ? 'fill-rose-600' : ''}`} />
                   {isFavorite ? 'Salvo' : 'Salvar'}

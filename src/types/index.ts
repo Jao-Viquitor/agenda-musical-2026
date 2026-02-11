@@ -5,7 +5,22 @@ export enum EventCategory {
   REUNIAO = 'Reunião',
   ENSAIO_GERAL = 'Ensaio Geral',
   EXAME = 'Exames',
+  REUNIAO_TECNICA_ORGANISTAS = 'Reunião Técnica Organistas',
 }
+
+export enum Region {
+  URUGUAIANA = 'uruguaiana',
+  FREDERICO_WESTPHALEN = 'frederico-westphalen',
+  IJUI = 'ijui',
+}
+
+export interface RegionalConfig {
+  id: Region;
+  name: string;
+  fullTitle: string;
+  hasChurches: boolean;
+}
+
 
 export interface MusicalEvent {
   id: string;
