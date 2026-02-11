@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { MusicalEvent, EventCategory } from '../../types';
 import { formatDate } from '../../lib/dateHelpers';
-import { generateEventShareText, getGoogleCalendarLink, shareContent } from '../../lib/actionHelpers';
+import { generateEventShareText, getGoogleCalendarLink, shareContent, shareToWhatsApp } from '../../lib/actionHelpers';
 import { getMainChurchAddress } from '../../lib/churchData';
-import { MapPin, Clock, Calendar, Share2, Heart, CalendarPlus, Navigation, X } from 'lucide-react';
+import { MapPin, Clock, Calendar, Share2, Heart, CalendarPlus, Navigation, X, MessageCircle } from 'lucide-react';
 
 interface EventCardProps {
   event: MusicalEvent;
@@ -84,6 +84,12 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
     e.stopPropagation();
     const text = generateEventShareText(event);
     shareContent(event.title, text);
+  };
+
+  const handleWhatsAppShare = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const text = generateEventShareText(event);
+    shareToWhatsApp(text);
   };
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
@@ -258,6 +264,14 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                 )}
 
                 <button
+                  onClick={handleWhatsAppShare}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-[#25D366] text-white rounded-lg hover:bg-[#25D366]/90 transition-colors font-medium text-sm"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp
+                </button>
+
+                <button
                   onClick={handleShare}
                   className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors font-medium text-sm"
                 >
@@ -268,8 +282,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                 <button
                   onClick={handleFavoriteClick}
                   className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg transition-colors font-medium text-sm ${isFavorite
-                      ? 'bg-rose-100 text-rose-600 hover:bg-rose-200'
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    ? 'bg-rose-100 text-rose-600 hover:bg-rose-200'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                 >
                   <Heart className={`w-4 h-4 ${isFavorite ? 'fill-rose-600' : ''}`} />

@@ -178,10 +178,10 @@ const App: React.FC = () => {
       {/* Header */}
       <header className="bg-white border-b border-slate-200 py-4 shadow-sm">
         <div className="w-full px-4">
-          {/* Grid Layout: Logo | Title (centered) | Buttons */}
-          <div className="grid grid-cols-3 items-center gap-4 mb-1">
-            {/* Logo - Left */}
-            <div className="flex justify-start items-center ml-24">
+          {/* Responsive Header Row */}
+          <div className="flex items-center justify-between md:grid md:grid-cols-3 gap-4 mb-1">
+            {/* Logo - Hidden on mobile, Left on desktop */}
+            <div className="hidden md:flex justify-start items-center ml-24">
               <img
                 src="/logo.png"
                 alt="Setor Musical"
@@ -189,8 +189,8 @@ const App: React.FC = () => {
               />
             </div>
 
-            {/* Title - Center (truly centered) */}
-            <div className="text-center">
+            {/* Title - Left on mobile, Center on desktop */}
+            <div className="text-left md:text-center">
               <h1 className="text-xl md:text-3xl font-bold text-[#033d60] leading-tight">
                 Agenda Musical
               </h1>
