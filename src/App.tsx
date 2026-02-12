@@ -181,7 +181,7 @@ const App: React.FC = () => {
           {/* Responsive Header Row */}
           <div className="flex items-center justify-between md:grid md:grid-cols-3 gap-4 mb-1">
             {/* Logo - Hidden on mobile, Left on desktop */}
-            <div className="hidden md:flex justify-start items-center ml-24">
+            <div className="!hidden md:!flex justify-start items-center md:ml-24">
               <img
                 src="/logo.png"
                 alt="Setor Musical"
