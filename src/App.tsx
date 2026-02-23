@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { generateAllEvents } from './lib/dateHelpers';
-import { fredericoWestphalenEvents, cruzAltaIjuiEvents } from './lib/regionalEventsData';
+import { fredericoWestphalenEvents, cruzAltaIjuiEvents, gravataiEvents } from './lib/regionalEventsData';
 import { FilterState, MusicalEvent, Region, RegionalConfig } from './types';
 import { EventCard } from './components/features/EventCard';
 import { Filters } from './components/features/Filters';
@@ -26,6 +26,12 @@ const REGIONAL_CONFIGS: RegionalConfig[] = [
     id: Region.IJUI,
     name: 'Ijuí',
     fullTitle: 'Agenda Musical - Região Ijuí',
+    hasChurches: false
+  },
+  {
+    id: Region.GRAVATAI,
+    name: 'Gravataí',
+    fullTitle: 'Agenda Musical - Região Gravataí',
     hasChurches: false
   }
 ];
@@ -69,6 +75,8 @@ const App: React.FC = () => {
         return fredericoWestphalenEvents;
       case Region.IJUI:
         return cruzAltaIjuiEvents;
+      case Region.GRAVATAI:
+        return gravataiEvents;
       default:
         return generateAllEvents();
     }

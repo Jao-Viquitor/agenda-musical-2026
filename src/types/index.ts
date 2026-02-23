@@ -12,6 +12,7 @@ export enum Region {
   URUGUAIANA = 'uruguaiana',
   FREDERICO_WESTPHALEN = 'frederico-westphalen',
   IJUI = 'ijui',
+  GRAVATAI = 'gravatai',
 }
 
 export interface RegionalConfig {

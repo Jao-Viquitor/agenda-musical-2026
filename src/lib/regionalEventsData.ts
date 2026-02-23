@@ -468,3 +468,285 @@ export const ijuiEvents: MusicalEvent[] = [
 
 // Export with old name for backward compatibility
 export const cruzAltaIjuiEvents = ijuiEvents;
+
+/**
+ * Eventos da Região Gravataí
+ * Previsão de datas (Região Gravataí e arredores)
+ */
+export const gravataiEvents: MusicalEvent[] = [
+    // --- Datas Específicas ---
+    {
+        id: 'ggf-cordas-2026-01-25',
+        title: 'Ensaio Geral por Família - Cordas',
+        location: 'Gravataí',
+        date: parseDate('25/01/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_GERAL,
+        isSpecial: true
+    },
+    {
+        id: 'reuniao-setor-2026-02-07',
+        title: 'Reunião Setor Musical',
+        location: 'Gravataí',
+        date: parseDate('07/02/2026'),
+        time: '09:00',
+        category: EventCategory.REUNIAO,
+        isSpecial: true
+    },
+    {
+        id: 'ggf-madeiras-2026-02-22',
+        title: 'Ensaio Geral por Família - Madeiras',
+        location: 'Gravataí',
+        date: parseDate('22/02/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_GERAL,
+        isSpecial: true
+    },
+    {
+        id: 'regional-2026-03-21',
+        title: 'Ensaio Regional',
+        location: 'Esteio',
+        date: parseDate('21/03/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_REGIONAL,
+        isSpecial: true
+    },
+    {
+        id: 'ggf-metais-2026-03-29',
+        title: 'Ensaio Geral por Família - Metais',
+        location: 'Gravataí',
+        date: parseDate('29/03/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_GERAL,
+        isSpecial: true
+    },
+    {
+        id: 'regional-2026-04-26',
+        title: 'Ensaio Regional',
+        location: 'Torres',
+        date: parseDate('26/04/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_REGIONAL,
+        isSpecial: true
+    },
+    {
+        id: 'teste-jovens-2026-05-02',
+        title: 'Teste para Reunião de Jovens e Menores',
+        location: 'Gravataí',
+        date: parseDate('02/05/2026'),
+        time: '09:30',
+        category: EventCategory.EXAME,
+        isSpecial: true
+    },
+    {
+        id: 'reuniao-setor-2026-05-09',
+        title: 'Reunião Setor Musical',
+        location: 'Gravataí',
+        date: parseDate('09/05/2026'),
+        time: '09:00',
+        category: EventCategory.REUNIAO,
+        isSpecial: true
+    },
+    {
+        id: 'teste-oficial-2026-07-04',
+        title: 'Teste para Culto Oficial e Oficialização',
+        location: 'Gravataí',
+        date: parseDate('04/07/2026'),
+        time: '09:30',
+        category: EventCategory.EXAME,
+        isSpecial: true
+    },
+    {
+        id: 'regional-2026-07-05',
+        title: 'Ensaio Regional',
+        location: 'Osório',
+        date: parseDate('05/07/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_REGIONAL,
+        isSpecial: true
+    },
+    {
+        id: 'reuniao-setor-2026-08-01',
+        title: 'Reunião Setor Musical',
+        location: 'Gravataí',
+        date: parseDate('01/08/2026'),
+        time: '09:00',
+        category: EventCategory.REUNIAO,
+        isSpecial: true
+    },
+    {
+        id: 'regional-2026-09-20',
+        title: 'Ensaio Regional',
+        location: 'Gravataí',
+        date: parseDate('20/09/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_REGIONAL,
+        isSpecial: true
+    },
+    {
+        id: 'teste-jovens-2026-10-03',
+        title: 'Teste para Reunião de Jovens e Menores',
+        location: 'Gravataí',
+        date: parseDate('03/10/2026'),
+        time: '09:30',
+        category: EventCategory.EXAME,
+        isSpecial: true
+    },
+    {
+        id: 'reuniao-setor-2026-11-07',
+        title: 'Reunião Setor Musical',
+        location: 'Gravataí',
+        date: parseDate('07/11/2026'),
+        time: '09:00',
+        category: EventCategory.REUNIAO,
+        isSpecial: true
+    },
+    {
+        id: 'teste-oficial-2026-12-05',
+        title: 'Teste para Culto Oficial e Oficialização',
+        location: 'Gravataí',
+        date: parseDate('05/12/2026'),
+        time: '09:30',
+        category: EventCategory.EXAME,
+        isSpecial: true
+    },
+    {
+        id: 'regional-2026-12-06',
+        title: 'Ensaio Regional',
+        location: 'Capivari do Sul',
+        date: parseDate('06/12/2026'),
+        time: '09:00',
+        category: EventCategory.ENSAIO_REGIONAL,
+        isSpecial: true
+    },
+
+    // --- Recorrentes (Sem Data Específica) ---
+    {
+        id: 'gravatai-rec-1',
+        title: 'Ensaio Local - 1º Sábado do Mês',
+        location: 'Gravataí - Auxiliadora',
+        date: undefined,
+        time: '17:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-2',
+        title: 'Ensaio Local - 1º Sábado do Mês',
+        location: 'Torres',
+        date: undefined,
+        time: '17:30',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-3',
+        title: 'Ensaio Local - 1º Domingo do Mês',
+        location: 'Esteio',
+        date: undefined,
+        time: '17:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-4',
+        title: 'Ensaio Local - 1º Domingo Mês Ímpar',
+        location: 'Cachoeirinha - Betânia',
+        date: undefined,
+        time: '17:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-5',
+        title: 'Ensaio Local - 1º Segunda-feira do Mês',
+        location: 'Capão da Canoa',
+        date: undefined,
+        time: '20:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-6',
+        title: 'Ensaio Local - 2º Sábado do Mês',
+        location: 'Gravataí - Central',
+        date: undefined,
+        time: '17:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-7',
+        title: 'Ensaio Local - 2º Sábado do Mês à cada 60 dias',
+        location: 'Capivari do Sul',
+        date: undefined,
+        time: '20:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-8',
+        title: 'Ensaio Local - 2º Domingo Mês Ímpar à cada 60 dias',
+        location: 'Tramandaí',
+        date: undefined,
+        time: '17:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-9',
+        title: 'Ensaio Local - 2º Domingo Mês Par',
+        location: 'Cidreira',
+        date: undefined,
+        time: '18:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-10',
+        title: 'Ensaio Local - 3º Sábado do Mês',
+        location: 'Osório',
+        date: undefined,
+        time: '17:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-11',
+        title: 'Ensaio Local - 3º Domingo do Mês junto ao culto',
+        location: 'Borussia',
+        date: undefined,
+        time: '18:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-12',
+        title: 'Ensaio Local - 3º Terça-feira do Mês Par à cada 60 dias',
+        location: 'Imbé',
+        date: undefined,
+        time: '20:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-13',
+        title: 'Ensaio Local - 4º Sábado do Mês',
+        location: 'Santo Antônio da Patrulha',
+        date: undefined,
+        time: '17:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-14',
+        title: 'Ensaio Local - 4º Sábado do Mês',
+        location: 'Tavares',
+        date: undefined,
+        time: '17:30',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-15',
+        title: 'Ensaio Local - 4º Terça-feira Mês Ímpar',
+        location: 'Gravataí - Sagrada Família',
+        date: undefined,
+        time: '20:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    },
+    {
+        id: 'gravatai-rec-16',
+        title: 'Ensaio Local - 4º Terça-feira Mês Par',
+        location: 'Gravataí - Morada do Vale 2',
+        date: undefined,
+        time: '20:00',
+        category: EventCategory.ENSAIO_LOCAL,
+    }
+];
