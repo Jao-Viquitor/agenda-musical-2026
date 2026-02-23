@@ -23,6 +23,33 @@ export interface RegionalConfig {
 }
 
 
+export interface InstrumentStat {
+  name: string;
+  count: number;
+}
+
+export interface FamilyStat {
+  name: string;
+  total: number;
+  percentage: number;
+  idealPercentage: number;
+}
+
+export interface EventStats {
+  hinoAbertura: number;
+  anciao: string;
+  palavra: string;
+  regentes: string[];
+  totalMusicians: number;
+  instruments: InstrumentStat[];
+  hinosTocados: number[];
+  families: FamilyStat[];
+  organistas?: number;
+  examinadoras?: number;
+  encarregadosRegionais?: number;
+  totalGeral?: number; // Músicos + Org + Min
+}
+
 export interface MusicalEvent {
   id: string;
   title: string;
@@ -32,6 +59,7 @@ export interface MusicalEvent {
   category: EventCategory;
   description?: string;
   isSpecial?: boolean; // For highlighting important events
+  stats?: EventStats; // Data from past events
 }
 
 export interface FilterState {

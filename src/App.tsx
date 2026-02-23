@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { generateAllEvents } from './lib/dateHelpers';
 import { fredericoWestphalenEvents, cruzAltaIjuiEvents, gravataiEvents } from './lib/regionalEventsData';
-import { FilterState, MusicalEvent, Region, RegionalConfig } from './types';
+import { FilterState, MusicalEvent, Region, RegionalConfig, EventCategory } from './types';
 import { EventCard } from './components/features/EventCard';
 import { Filters } from './components/features/Filters';
 import { ChurchList } from './components/features/ChurchList';
@@ -139,6 +139,17 @@ const App: React.FC = () => {
 
     return { upcomingEvents: upcoming, pastEvents: past };
   }, [filteredEvents]);
+
+  // Floating Regional Events para Uruguaiana
+  const isFilterActive = filters.category !== '' || filters.location !== '' || filters.month !== '' || filters.onlyFavorites;
+
+  const floatingRegionals = useMemo(() => {
+    if (currentRegion !== Region.URUGUAIANA || isFilterActive) return [];
+
+    // Sort chronological: past first, then upcoming (or vice-versa).
+    // They are already sorted chronologically in allEvents.
+    return allEvents.filter(e => e.category === EventCategory.ENSAIO_REGIONAL);
+  }, [currentRegion, isFilterActive, allEvents]);
 
 
   // Helper to group events by month
@@ -315,6 +326,31 @@ const App: React.FC = () => {
               </div>
             ) : (
               <div className="space-y-10 pb-6">
+
+                {/* Floating Regionals */}
+                {floatingRegionals.length > 0 && (
+                  <section className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="flex items-center gap-4 mb-6 sticky top-20 z-20 py-2 bg-[#f1f2f6]/95 backdrop-blur">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-pulse"></span>
+                        <h2 className="text-xl font-bold text-purple-800">Destaques: Ensaios Regionais</h2>
+                      </div>
+                      <div className="h-px bg-purple-200 flex-grow"></div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {floatingRegionals.map((event) => (
+                        <EventCard
+                          key={`floating-${event.id}`}
+                          event={event}
+                          isFavorite={favorites.includes(event.id)}
+                          onToggleFavorite={toggleFavorite}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                )}
+
                 {(Object.entries(mainViewGroups) as [string, MusicalEvent[]][]).map(([monthName, events]) => (
                   <section key={monthName} className="animate-in fade-in slide-in-from-bottom-4 duration-500 scroll-mt-24" id={monthName}>
                     <div className="flex items-center gap-4 mb-6 sticky top-20 z-20 py-2 bg-[#f1f2f6]/95 backdrop-blur">

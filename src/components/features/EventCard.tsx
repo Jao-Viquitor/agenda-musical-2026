@@ -239,6 +239,107 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                 </div>
               )}
 
+              {/* Event Stats */}
+              {event.stats && (
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 space-y-4">
+                  <h3 className="text-sm font-bold text-[#033d60] border-b border-slate-200 pb-2 mb-3">Estatísticas do Ensaio</h3>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="block text-xs text-slate-500 font-medium">Hino de Abertura</span>
+                      <span className="text-sm font-semibold text-slate-700">{event.stats.hinoAbertura}</span>
+                    </div>
+                    <div>
+                      <span className="block text-xs text-slate-500 font-medium">Ancião</span>
+                      <span className="text-sm font-semibold text-slate-700">Ir. {event.stats.anciao}</span>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="block text-xs text-slate-500 font-medium">Palavra</span>
+                      <span className="text-sm font-semibold text-slate-700">{event.stats.palavra}</span>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="block text-xs text-slate-500 font-medium">Regência</span>
+                      <div className="text-sm font-semibold text-slate-700 flex flex-col gap-1 mt-1">
+                        {event.stats.regentes.map((r, i) => (
+                          <span key={i} className="bg-white border border-slate-200 px-2 py-1 rounded text-xs">{i + 1} - Regência Ir. {r}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="block text-xs text-slate-500 font-medium mb-1">Hinos Ensaiados</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {event.stats.hinosTocados.map((h, i) => (
+                          <span key={i} className="inline-flex items-center justify-center bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-2 py-1 rounded">
+                            {h}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-200">
+                    <h4 className="text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide">Público Musical</h4>
+                    <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Músicos</span>
+                        <span className="font-semibold">{event.stats.totalMusicians}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Organistas</span>
+                        <span className="font-semibold">{event.stats.organistas || 0}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Examinadoras</span>
+                        <span className="font-semibold">{event.stats.examinadoras || 0}</span>
+                      </div>
+                      <div className="flex justify-between text-xs items-center">
+                        <span className="text-slate-500 leading-tight">Enc. Regionais</span>
+                        <span className="font-semibold text-sm">{event.stats.encarregadosRegionais || 0}</span>
+                      </div>
+                      <div className="col-span-2 flex justify-between pt-2 border-t border-slate-100 mt-1">
+                        <span className="font-bold text-[#033d60]">Total Geral</span>
+                        <span className="font-bold text-[#033d60]">{event.stats.totalGeral || (event.stats.totalMusicians + (event.stats.organistas || 0) + (event.stats.examinadoras || 0) + (event.stats.encarregadosRegionais || 0))}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-200">
+                    <h4 className="text-xs font-bold text-slate-600 mb-2 uppercase tracking-wide flex justify-between">
+                      <span>Famílias</span>
+                      <span className="font-normal text-[10px] text-slate-400">linha vermelha = ideal</span>
+                    </h4>
+
+                    <div className="space-y-3">
+                      {event.stats.families.map((family, idx) => (
+                        <div key={idx} className="bg-white border border-slate-100 rounded-md p-2">
+                          <div className="flex justify-between font-semibold text-xs mb-1.5 align-middle">
+                            <span className="text-[#033d60]">{family.name}</span>
+                            <span className="text-[10px] text-slate-500">{family.total} músicos ({family.percentage}%)</span>
+                          </div>
+                          {/* Progress bar */}
+                          <div className="w-full bg-slate-100 rounded-full h-1.5 mb-1 relative flex overflow-hidden">
+                            <div className="bg-[#033d60] h-1.5 rounded-l-full" style={{ width: `${Math.min(family.percentage, 100)}%` }}></div>
+                            <div className="absolute top-0 bottom-0 w-0.5 bg-rose-500 z-10" style={{ left: `${family.idealPercentage}%` }}></div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-4">
+                      <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Detalhamento por Instrumento</h5>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 bg-white border border-slate-100 p-2 rounded-lg">
+                        {event.stats.instruments.filter(i => i.count > 0).map((inst, idx) => (
+                          <div key={idx} className="flex justify-between text-xs items-center">
+                            <span className="text-slate-600 truncate mr-2" title={inst.name}>{inst.name}</span>
+                            <span className="font-semibold text-slate-800 bg-slate-50 px-1.5 rounded">{inst.count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Actions */}
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <a
