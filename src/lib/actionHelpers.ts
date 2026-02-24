@@ -2,15 +2,16 @@ import { MusicalEvent } from '../types';
 import { Church, getMainChurchAddress } from './churchData';
 
 export const shareToWhatsApp = (text: string) => {
-  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  // Use api.whatsapp.com instead of wa.me to prevent 302 redirect emoji corruption
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
   window.open(url, '_blank');
 };
 
 export const shareContent = async (title: string, text: string) => {
   if (navigator.share) {
     try {
+      // Sending only text to prevent bugs where Android Web Share corrupts strings containing emojis when title is also passed
       await navigator.share({
-        title,
         text,
       });
     } catch (error) {
