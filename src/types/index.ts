@@ -50,6 +50,12 @@ export interface EventStats {
   totalGeral?: number; // Músicos + Org + Min
 }
 
+export interface GemSchedule {
+  scale: string;
+  hinosRJM: string;
+  hinosMeiaHora: string;
+}
+
 export interface MusicalEvent {
   id: string;
   title: string;
@@ -60,6 +66,7 @@ export interface MusicalEvent {
   description?: string;
   isSpecial?: boolean; // For highlighting important events
   stats?: EventStats; // Data from past events
+  gemSchedule?: GemSchedule; // Detalhamento de ensaio (escala, hinos)
 }
 
 export interface FilterState {

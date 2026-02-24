@@ -1,4 +1,4 @@
-import { MusicalEvent, EventCategory } from '../types';
+import { MusicalEvent, EventCategory, GemSchedule } from '../types';
 
 const YEAR = new Date().getFullYear(); // Use current year
 
@@ -48,7 +48,8 @@ export const generateAllEvents = (): MusicalEvent[] => {
     date: Date | undefined,
     time: string,
     category: EventCategory,
-    description: string = ''
+    description: string = '',
+    gemSchedule?: GemSchedule
   ) => {
     // Highlight ONLY regional events and meetings as requested
     const isSpecial =
@@ -71,7 +72,8 @@ export const generateAllEvents = (): MusicalEvent[] => {
       time: finalTime,
       category,
       description: finalDescription,
-      isSpecial
+      isSpecial,
+      gemSchedule
     });
   };
 
@@ -122,14 +124,31 @@ export const generateAllEvents = (): MusicalEvent[] => {
   });
 
   // 4. Práticas em Conjunto (Fixos Mensais - GEM)
+  const uruguaianaGemSchedules: GemSchedule[] = [
+    { hinosRJM: '447, 443, 445, 474, 464', hinosMeiaHora: 'A Definir', scale: 'Dó Maior' },
+    { hinosRJM: '456, 461, 444, 437, 440', hinosMeiaHora: 'A Definir', scale: 'Fá Maior - 1b' },
+    { hinosRJM: '441, 468, 475, 431, 470', hinosMeiaHora: 'A Definir', scale: 'Sol Maior - 1#' },
+    { hinosRJM: '434, 458, 460, 478, 433', hinosMeiaHora: 'A Definir', scale: 'Si bemol Maior - 2b' },
+    { hinosRJM: '450, 477, 439, 449, 466', hinosMeiaHora: 'A Definir', scale: 'Ré Maior - 2#' },
+    { hinosRJM: '469, 479, 435, 462, 476', hinosMeiaHora: 'A Definir', scale: 'Mi bemol Maior - 3b' },
+    { hinosRJM: '438, 457, 421, 459, 480', hinosMeiaHora: 'A Definir', scale: 'Lá Maior - 3#' },
+    { hinosRJM: '454, 448, 453, 442, 446', hinosMeiaHora: 'A Definir', scale: 'Lá bemol Maior - 4b' },
+    { hinosRJM: '463, 465, 471, 472, 467', hinosMeiaHora: 'A Definir', scale: 'Mi Maior - 4#' },
+    { hinosRJM: '455, 432, 452, 473, 436', hinosMeiaHora: 'A Definir', scale: 'Ré bemol Maior - 5b' }
+  ];
+
   // Começam em Março (m=2) pois Jan/Fev são férias
   for (let m = 2; m < 12; m++) {
     // Itaqui: 1º Sábado
     addEvent('Prática em Conjunto', 'Itaqui', getNthWeekday(m, 6, 1), 'Após o Santo Culto', EventCategory.PRATICA_CONJUNTO);
     // Alegrete: 2º Sábado
     addEvent('Prática em Conjunto', 'Alegrete', getNthWeekday(m, 6, 2), 'Após o Santo Culto', EventCategory.PRATICA_CONJUNTO);
-    // Uruguaiana: 2º Sábado
-    addEvent('Prática em Conjunto', 'Uruguaiana', getNthWeekday(m, 6, 2), 'Após o Santo Culto', EventCategory.PRATICA_CONJUNTO);
+
+    // Uruguaiana: 2º Sábado (com hinos e escalas definidos)
+    const sched = uruguaianaGemSchedules[m - 2];
+    const descUru = `Hinos: ${sched.hinosRJM}, ${sched.hinosMeiaHora} (Escala de ${sched.scale})`;
+    addEvent('Prática em Conjunto', 'Uruguaiana', getNthWeekday(m, 6, 2), 'Após o Santo Culto', EventCategory.PRATICA_CONJUNTO, descUru, sched);
+
     // São Borja: Último Sábado
     addEvent('Prática em Conjunto', 'São Borja', getNthWeekday(m, 6, -1), 'Após o Santo Culto', EventCategory.PRATICA_CONJUNTO);
   }

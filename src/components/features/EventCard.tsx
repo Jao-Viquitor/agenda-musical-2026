@@ -231,11 +231,50 @@ export const EventCard: React.FC<EventCardProps> = ({ event, isFavorite, onToggl
                 </div>
               </div>
 
-              {/* Description */}
-              {event.description && (
+              {/* Description (Oculta no modal caso haja gemSchedule, para dar espaço ao detalhamento) */}
+              {event.description && !event.gemSchedule && (
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                   <span className="block text-xs text-amber-700 font-semibold uppercase mb-2">Observações</span>
                   <p className="text-sm text-slate-700">{event.description}</p>
+                </div>
+              )}
+
+              {/* Detalhamento de Prática em Conjunto */}
+              {event.gemSchedule && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <span className="block text-xs text-blue-700 font-semibold uppercase mb-3">Cronograma de Ensaios</span>
+                  <div className="space-y-3">
+                    <div className="bg-white border border-blue-100 rounded p-2">
+                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Escala</span>
+                      <span className="text-sm font-semibold text-[#033d60]">{event.gemSchedule.scale}</span>
+                    </div>
+                    <div className="bg-white border border-blue-100 rounded p-2">
+                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Hinos de RJM</span>
+                      <div className="flex flex-wrap gap-1.5 mt-1">
+                        {event.gemSchedule.hinosRJM.split(',').map((h, i) => (
+                          <span key={`rjm-${i}`} className="inline-flex items-center justify-center bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold px-2 py-0.5 rounded">
+                            {h.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="bg-white border border-blue-100 rounded p-2">
+                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Hinos de Meia Hora</span>
+                      <div className="flex flex-wrap gap-1.5 mt-1">
+                        {event.gemSchedule.hinosMeiaHora.toLowerCase() === 'a definir' ? (
+                          <span className="inline-flex items-center justify-center bg-slate-100 text-slate-500 border border-slate-200 text-xs font-medium px-2 py-0.5 rounded">
+                            A Definir
+                          </span>
+                        ) : (
+                          event.gemSchedule.hinosMeiaHora.split(',').map((h, i) => (
+                            <span key={`meia-${i}`} className="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold px-2 py-0.5 rounded">
+                              {h.trim()}
+                            </span>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
 
