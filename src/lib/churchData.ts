@@ -54,7 +54,7 @@ export const churchGroups: ChurchGroup[] = [
         name: 'União das Vilas',
         address: 'Rua Imbaa, 26 - Quadra Q',
         services: 'Terça e Sexta (19h30)',
-        rjm: 'Domingo (10h)',
+        rjm: '-',
         lat: -29.778100,
         lng: -57.091500
       },
@@ -193,35 +193,35 @@ export const getMainChurchAddress = (locationName: string): string | null => {
 
   // Try to find a group that contains the location name (e.g. "Uruguaiana" matches "Uruguaiana (RS)")
   const group = churchGroups.find(g => g.regionName.toLowerCase().includes(normalizedLoc));
-  
+
   // If we found a group, find the main church
   if (group) {
     const mainChurch = group.churches.find(c => c.isMain);
     if (mainChurch) return mainChurch.address;
   }
-  
+
   // Special handling for cities grouped in "Outras Cidades" or "Exterior"
   // We iterate through all groups and check if any church name or specific logic matches
   for (const g of churchGroups) {
-      for (const c of g.churches) {
-          if (c.isMain && (
-             c.name.toLowerCase().includes(normalizedLoc) || 
-             c.address.toLowerCase().includes(normalizedLoc)
-          )) {
-              return c.address;
-          }
+    for (const c of g.churches) {
+      if (c.isMain && (
+        c.name.toLowerCase().includes(normalizedLoc) ||
+        c.address.toLowerCase().includes(normalizedLoc)
+      )) {
+        return c.address;
       }
+    }
   }
 
   // Fallback map for specific event location names in the code to Main Churches
   const map: Record<string, string> = {
-      'Libres': 'Bartolomé Mitre, 2030, Paso de los Libres, Corrientes, Argentina',
-      'Artigas': 'Calle Celiar López, 935, Artigas, Uruguay',
-      'Bella Union': 'Calle A2, 3156, Bella Unión, Uruguay',
-      'São Borja': 'Rua Frei Caneca, 1065, São Borja - RS',
-      'Alegrete': 'Rua Celestino Prunes, 328, Alegrete - RS',
-      'Itaqui': 'Rua Coronel Assunção, 270, Itaqui - RS',
-      'Uruguaiana': 'Rua Min. Joaquim Murtinho, 2869, Uruguaiana - RS'
+    'Libres': 'Bartolomé Mitre, 2030, Paso de los Libres, Corrientes, Argentina',
+    'Artigas': 'Calle Celiar López, 935, Artigas, Uruguay',
+    'Bella Union': 'Calle A2, 3156, Bella Unión, Uruguay',
+    'São Borja': 'Rua Frei Caneca, 1065, São Borja - RS',
+    'Alegrete': 'Rua Celestino Prunes, 328, Alegrete - RS',
+    'Itaqui': 'Rua Coronel Assunção, 270, Itaqui - RS',
+    'Uruguaiana': 'Rua Min. Joaquim Murtinho, 2869, Uruguaiana - RS'
   };
 
   return map[locationName] || null;
