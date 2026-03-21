@@ -7,6 +7,8 @@ import { Filters } from './components/features/Filters';
 import { ChurchList } from './components/features/ChurchList';
 import { RegionMap } from './components/features/RegionMap';
 import { Music, CalendarDays, Map, CalendarRange, History, ChevronDown, ChevronUp } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
+
 
 // Regional configurations
 const REGIONAL_CONFIGS: RegionalConfig[] = [
@@ -431,6 +433,7 @@ const App: React.FC = () => {
       <footer className="mt-20 border-t border-slate-200 bg-white py-8 text-center text-slate-400 text-sm">
         <p>&copy; {new Date().getFullYear()} Setor Musical. Regional Uruguaiana.</p>
       </footer>
+      <Analytics />
     </div>
   );
 };
