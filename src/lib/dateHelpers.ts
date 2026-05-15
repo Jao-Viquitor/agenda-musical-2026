@@ -101,7 +101,7 @@ export const generateAllEvents = (): MusicalEvent[] => {
     { loc: 'Artigas', date: '26/07', time: '19:30' },
     { loc: 'Artigas', date: '22/11', time: '19:30' },
     { loc: 'Bella Union', date: '22/03', time: '19:30' },
-    { loc: 'Bella Union', date: '13/08', time: '19:30' },
+    { loc: 'Bella Union', date: '13/09', time: '19:30' },
     { loc: 'Bella Union', date: '20/12', time: '19:30' },
   ];
 
