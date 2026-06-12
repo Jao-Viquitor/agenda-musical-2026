@@ -14,7 +14,7 @@ import { Analytics } from '@vercel/analytics/react';
 const REGIONAL_CONFIGS: RegionalConfig[] = [
   {
     id: Region.URUGUAIANA,
-    name: 'Uruguaiana',
+    name: 'Uruguaiana, RS',
     fullTitle: 'Agenda Musical - Região Uruguaiana',
     hasChurches: true
   },
